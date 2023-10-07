@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkalami&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    transition-duration: 0.5s;
+}
+
+.container,
+.inputs {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inputs {
+    top: 30px
+}
+
+.forms {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 70px;
+    transform: translateX(-50%);
+}
+
+.field {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 160px;
+}
+
+.btn {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+    background-color: grey;
+    border: 0;
+    border-radius: 2px;
+
+}
+
+.btn p {
+    text-align: center;
+    opacity: 0;
+    font-family: 'Alkalami', serif;
+    font-weight: bolder;
+    font-size: 15px;
+    position: relative;
+    bottom: 1px;
+}
+
+#start,
+#height,
+#width,
+#bombs,
+#nick {
+    color: white;
+    border-color: white;
+    height: 20px;
+    background-color: rgba(128, 128, 128, 0);
+    border-radius: 5px;
+    width: 63px;
+    text-align: center;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    position: absolute;
+    font-size: 15px;
+    top: 214px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 7px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.modescoreboard,
+.scoreboard {
+    text-align: center;
+    align-self: center;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    margin: 20px 0 0 0;
+}
+
+.flagged {
+    background-image: url("flag.jpg");
+    background-size: contain;
+}
+
+.unhidden {
+    background-color: rgba(255, 255, 255, 0.1)
+}
+
+.won {
+    background-color: rgba(83, 0, 72, 0.5);
+    opacity: 60%;
+    color: grey
+}
+
+#nick {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform: translateX(-50%);
+    width: 197px
+}
+
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    filter: brightness(10%);
+}
+
+.zero p {
+    color: rgba(0, 0, 0, 0)
+}
+
+.one p {
+    color: rgb(56, 120, 238)
+}
+
+.two p {
+    color: green
+}
+
+.thr p {
+    color: red
+}
+
+.more p {
+    color: black;
+    text-shadow: 0 0 2px white;
+}
