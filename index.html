@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js.js" defer></script>
-    <link rel="stylesheet" href="css.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Raleway:wght@100&display=swap"
         rel="stylesheet">
     <title>saper</title>
@@ -15,35 +15,30 @@
 <body style="background-color: rgb(19, 19, 19);">
     <div class="container">
         <div class="inputs">
-            <h1 style="color:white; font-family: 'Raleway', sans-serif;text-align: center;font-size: 64px;">SAPER</h1>
+            <h1>SAPER</h1>
             <figure class="forms">
                 <input placeholder="width" type="text" name="width" id="width">
-                <label for="field"></label>
                 <input placeholder="height" type="text" name="height" id="height">
-                <label for="field"></label>
                 <input placeholder="bombs" type="text" name="bombs" id="bombs">
-                <label for="bombs"></label>
             </figure>
-            <input placeholder="nick" type="text" name="nick" id="nick">
+            <!-- <input placeholder="nick" type="text" name="nick" id="nick"> -->
             <label for="field"></label>
-            <button onclick="build()" id="start"
-                style="position:absolute;left:50%;top:130px;transform:translateX(-50%);width:200px">BUILD</button>
+            <button onclick="build()" id="start">BUILD</button>
         </div>
-        <div class="field">
-            <div id="pole"></div>
+        <div id="field">
         </div>
         <div class="stats">
             <h1 id="timer"></h1>
             <h1 id="left"></h1>
         </div>
-        <div class="scoreboard">
+        <!-- <div class="scoreboard">
             <h2>Top 10 all:</h2>
             <ol id="scores-list"></ol>
         </div>
         <div class="modescoreboard">
             <h2>Top 10 for mode:</h2>
             <ol id="mode-scores-list"></ol>
-        </div>
+        </div> -->
     </div>
     <video id="background-video" autoplay loop muted poster="eh.mp4">
         <source src="eh.mp4" type="video/mp4">

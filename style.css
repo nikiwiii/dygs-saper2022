@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkalami&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    transition-duration: 0.5s;
+    font-family: "Outfit", sans-serif;
+}
+:root {
+    --size: 30px; 
+}
+
+h1 {
+    font-size: 64px;
+    font-family: "Outfit", sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputs {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    gap: 5px;
+}
+
+.forms {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+#field {
+    margin-top: 20px;
+}
+
+.btn {
+    width: var(--size);
+    height: var(--size);
+    margin-bottom: 4px;
+    background-color: grey;
+    border: 0;
+    border-radius: 2px;
+}
+
+.btn p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    font-family: 'Alkalami', serif !important;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+#start,
+#height,
+#width,
+#bombs,
+#nick {
+    color: white;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.forms * {
+    border-bottom-color: white !important;
+    border-bottom-width: 2px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 15px;
+    color: white;
+    font-family: "Outfit", sans-serif;
+    margin-top: 20px;
+}
+
+.stats * {
+    width: 150px;
+    text-align: center;
+    font-size: 30px;
+}
+
+/* .modescoreboard,
+.scoreboard {
+    text-align: center;
+    align-self: center;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    margin: 20px 0 0 0;
+} */
+
+.flagged {
+    background-image: url("flag.jpg");
+    background-size: contain;
+}
+
+.unhidden {
+    background-color: rgba(255, 255, 255, 0.1)
+}
+
+.won {
+    background-color: rgba(83, 0, 72, 0.5);
+    opacity: 60%;
+    color: grey
+}
+
+/* #nick {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform: translateX(-50%);
+    width: 197px
+} */
+
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    filter: brightness(20%);
+}
+
+.zero p {
+    color: rgba(0, 0, 0, 0)
+}
+
+.one p {
+    color: rgb(56, 120, 238)
+}
+
+.two p {
+    color: green
+}
+
+.thr p {
+    color: red
+}
+
+.more p {
+    color: black;
+    text-shadow: 0 0 2px white;
+}
