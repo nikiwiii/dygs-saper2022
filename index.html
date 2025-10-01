@@ -14,23 +14,22 @@
 
 <body style="background-color: rgb(19, 19, 19);">
     <div class="container">
-        <div class="inputs">
+        <form class="inputs" onsubmit="event.preventDefault();build()">
             <h1>SAPER</h1>
             <figure class="forms">
-                <input placeholder="width" type="text" name="width" id="width">
-                <input placeholder="height" type="text" name="height" id="height">
-                <input placeholder="bombs" type="text" name="bombs" id="bombs">
+                <input pattern="[0-9]+" placeholder="width" type="text" name="width" id="width" value="10">
+                <input pattern="[0-9]+" placeholder="height" type="text" name="height" id="height" value="10">
+                <input pattern="[0-9]+" placeholder="bombs" type="text" name="bombs" id="bombs" value="15">
             </figure>
             <!-- <input placeholder="nick" type="text" name="nick" id="nick"> -->
             <label for="field"></label>
-            <button onclick="build()" id="start">BUILD</button>
-        </div>
-        <div id="field">
-        </div>
+            <button id="start" type="submit">BUILD</button>
+        </form>
         <div class="stats">
             <h1 id="timer"></h1>
             <h1 id="left"></h1>
         </div>
+        <div id="field"></div>
         <!-- <div class="scoreboard">
             <h2>Top 10 all:</h2>
             <ol id="scores-list"></ol>

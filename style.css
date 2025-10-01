@@ -8,7 +8,14 @@
     font-family: "Outfit", sans-serif;
 }
 :root {
-    --size: 30px; 
+    --size: 30px;
+    --width: 0;
+    --height: 0;
+}
+
+body {
+    background: radial-gradient(circle, #1c1c1c, #1c1c1f, #1b1d21, #1a1d24, #171e27, #141f2d, #111f32, #0e2038, #171f40, #261b45, #381245, #4a0040);
+    background-attachment: fixed;
 }
 
 h1 {
@@ -42,24 +49,30 @@ h1 {
 
 #field {
     margin-top: 20px;
+    display: grid;
+    grid-template-rows: repeat(var(--width), minmax(0, 1fr));
+    grid-template-columns: repeat(var(--height), minmax(0, 1fr));
+    gap: 1px;
+    margin-bottom: 20px;
 }
 
 .btn {
     width: var(--size);
     height: var(--size);
-    margin-bottom: 4px;
-    background-color: grey;
+    background-color: rgba(103,105,105,0.75);
     border: 0;
-    border-radius: 2px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    filter: brightness(.8);
 }
 
 .btn p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    /* position: relative; */
+    /* top: 2px; */
     opacity: 0;
-    font-family: 'Alkalami', serif !important;
+    /* font-family: 'Alkalami', serif !important; */
     font-weight: bolder;
     font-size: 15px;
 }
@@ -72,7 +85,6 @@ h1 {
     color: white;
     border-color: transparent;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
     width: 100%;
     text-align: center;
     padding: 10px;
@@ -112,10 +124,13 @@ h1 {
 .flagged {
     background-image: url("flag.jpg");
     background-size: contain;
+    cursor: default;
 }
 
 .unhidden {
-    background-color: rgba(255, 255, 255, 0.1)
+    background-color: rgba(255, 255, 255, 0.1);
+    color: black;
+    cursor: default;
 }
 
 .won {
@@ -164,4 +179,16 @@ h1 {
 .more p {
     color: black;
     text-shadow: 0 0 2px white;
+}
+
+@keyframes bombScreen {
+    0% {
+        background-color: rgba(255, 0, 0, 1);
+    }
+    50% {
+        background-color: rgba(255, 0, 0, .3);
+    }
+    100% {
+        background-color: rgba(255, 0, 0, 1);
+    }
 }

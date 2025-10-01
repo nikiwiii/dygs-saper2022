@@ -13,6 +13,7 @@ var begun = false
 var timerInter
 var btnCounter = 0
 var generating = false
+var flagged = []
 const p = "<p style='opacity:100%'>"
 window.addEventListener("contextmenu", e => e.preventDefault())
 const $ = function (id) {
@@ -21,37 +22,52 @@ const $ = function (id) {
 
 async function build() {
     if (!generating) {
-        begun = false
-        $("field").innerHTML = ""
-        reset()
+        if ($("width").value.length && $("height").value.length && $("bombs").value.length){
+            begun = false
+            $("field").innerHTML = ""
+            reset()
+            document.documentElement.style.setProperty('--width', width);
+            document.documentElement.style.setProperty('--height', height);
 
-        if (bomnum >= width * height || !parseInt(bomnum) && bomnum != 0) { //weryfikacja formsa bomb
-            bomnum = width * height - 1
-            $("bombs").value = bomnum
+            if (bomnum >= width * height || !parseInt(bomnum) && bomnum != 0) { //weryfikacja formsa bomb
+                bomnum = width * height - 1
+                $("bombs").value = bomnum
+            }
+            $("left").innerHTML = "LEFT: " + bomnum
+
+            b = []
+            btnCounter = width * height
+            generating = true
+            addBtn(width * height > 400)
+            clearInterval(timerInter)
+        } else {
+            // alert("dokończ wypełnianie")
+            // $("width").value = "10"
+            // $("height").value = "10"
+            // $("bombs").value = "10"
+            // build()
         }
-        $("left").innerHTML = "LEFT: " + bomnum
-
-        b = []
-        btnCounter = width * height
-        generating = true
-        addBtn()
-        clearInterval(timerInter)
     }
 }
 
-function addBtn() {
-    b.push(0)
-    if (btnCounter % width == 0) { // stworz HTML
-        $("field").innerHTML += `<br>` // \n co kazde miniecie width
-    }
-    $("field").innerHTML += `
-    <button class="btn" id="f` + (width * height - btnCounter) +
-        `" oncontextmenu="flag(this.id)" onclick="reveal(this.id)"><p>1</button>`
-    btnCounter--
-    if (btnCounter > 0) setTimeout(addBtn, 10);
-    else {
-        generating = false
-        timer()
+function addBtn(long) {
+    if (long) {
+        boardCode = ''
+        for(var i = btnCounter; i > 0; i--) {
+            b.push(0)
+            boardCode += `
+        <button class="btn" id="f` + (width * height - i) +
+            `" oncontextmenu="flag(this.id)" onclick="reveal(this.id)"><p>1</button>`
+        }
+        $("field").innerHTML = boardCode
+    } else {
+        b.push(0)
+        $("field").innerHTML += `
+        <button class="btn" id="f` + (width * height - btnCounter) +
+            `" oncontextmenu="flag(this.id)" onclick="reveal(this.id)"><p>1</button>`
+        btnCounter--
+        if (btnCounter > 0) setTimeout(addBtn, 10);
+        else generating = false
     }
 }
 
@@ -86,7 +102,6 @@ function putMines(revealed) {
 
 function mineDetecting() {
     for (i = 0; i < width * height; i++) {
-        $('f' + i).classList.add("hidden")
         if (b[i] == 0) {
             if (i >= width) { //bez 1. wiersza
                 if (i % width != 0) { //bez lewej kol
@@ -130,51 +145,59 @@ function timer() {
 }
 
 function reveal(id) {
-    var it = id.substr(1)
-    if (!begun) {
-        putMines(it)
-        mineDetecting()
-    }
-    if (!$(id).classList.contains("flagged")) {
-        if (b[it] != 69) { // odkryj pole bez bomby
-            openOne(it)
-            if (b[it] == 0) {
-                openMany()
-            }
-            winCheck()
-        } else {
-            lost(id, it)
+    if (!$(id).classList.contains("unhidden")){
+        var it = id.substr(1)
+        if (!begun) {
+            putMines(it)
+            mineDetecting()
+            timer()
+        }
+        if (!$(id).classList.contains("flagged")) {
+            if (b[it] != 69) { // odkryj pole bez bomby
+                openOne(it)
+                if (b[it] == 0) openMany()
+                winCheck()
+            } else lost()
         }
     }
 }
 
-function lost(id, it) { // przegrana
-    $(id).innerHTML = p + "💣"
-    $(id).style.backgroundColor = "red"
+function lost() { // przegrana
     l = true
     score = $("timer").innerHTML
     $("timer").innerHTML = score
     for (i = 0; i < width * height; i++) {
-        if ($('f' + i).classList.contains("flagged")) {
-            $('f' + i).classList.remove("flagged")
-        }
-        if (b[i] == 69 && i != it) {
+        if ($('f' + i).classList.contains("flagged")) $('f' + i).classList.remove("flagged")
+        if (b[i] == 69) {
             $('f' + i).innerHTML = p + "💣"
-            $('f' + i).style.backgroundColor = "red"
-        } else if (i != it) {
-            $('f' + i).innerHTML = p + b[i]
-        }
+            $('f' + i).style.animation = "bombScreen infinite 1s ease-in-out"
+            $('f' + i).classList.add("unhidden")
+        } else $('f' + i).innerHTML = p + b[i]
         $('f' + i).disabled = true
     }
 }
 
 function openOne(id) {
-    $('f' + id).innerHTML = p + b[id]
-    $('f' + id).classList.add("unhidden")
-    addColor(b[id], 'f' + id)
-    if ($('f' + id).classList.contains("hidden")) {
+    if (!$('f' + id).classList.contains("unhidden")){
         uncovered++
-        $('f' + id).classList.remove("hidden")
+        $('f' + id).innerHTML = p + b[id]
+        $('f' + id).classList.add("unhidden")
+        $('f' + id).classList.add(addColor(b[id]))
+    }
+}
+
+function addColor(it) {
+    switch (it) {
+        case 0:
+            return("zero")
+        case 1:
+            return("one")
+        case 2:
+            return("two")
+        case 3:
+            return("thr")
+        default:
+            return("more")
     }
 }
 
@@ -198,43 +221,28 @@ function openMany() {
     }
 }
 
-function addColor(it, id) {
-    switch (it) {
-        case 0:
-            $(id).classList.add("zero")
-            break
-        case 1:
-            $(id).classList.add("one")
-            break
-        case 2:
-            $(id).classList.add("two")
-            break
-        case 3:
-            $(id).classList.add("thr")
-            break
-        default:
-            $(id).classList.add("more")
-    }
-}
-
 function flag(id) {
-    if ($(id).classList.contains("flagged")) {
-        $(id).classList.remove("flagged")
-        flags--
-    } else {
-        if (bomnum - flags != 0) {
-            if ($(id).classList.contains("hidden")) {
-                flags++
-                $(id).classList.add("flagged")
+    if (!w && !l){
+        if (flagged.includes(id)) {
+            $(id).classList.remove("flagged")
+            flagged.splice(flagged.indexOf(id), 1)
+            flags--
+        } else {
+            if (bomnum - flags != 0) {
+                if ($(id).innerHTML == "<p>1</p>") {
+                    flags++
+                    flagged.push(id)
+                    $(id).classList.add("flagged")
+                }
             }
         }
+        $("left").innerHTML = `LEFT: ${bomnum - flags}`
+        winCheck()
     }
-    $("left").innerHTML = `LEFT: ${bomnum - flags}`
-    winCheck()
 }
 
 function winCheck() {
-    if (uncovered == width * height - bomnum) {
+    if (uncovered == width * height - bomnum && flags == bomnum) {
         w = true
         for (var j = 0; j < width * height; j++) {
             $('f' + j).disabled = true
